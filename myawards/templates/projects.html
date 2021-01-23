@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+
+<div class="container mt-5 ">
+    <div class="card mb-3" style="border: 1px solid white;">
+        <img class="card-img-top" src="{{post.image.url}}" alt="{{post.title}}">
+        <div class="card-body">
+            <h5 class="card-title" style="font-family: 'Yeseva One', cursive ;font-size: 25px;">
+                {{post.title|title}}<span class="float-right"><small>{{post.published|timesince}}<i
+                            class="far fa-clock"></i></small></span>
+            </h5>
+            <h6 class="card-subtitle mt-3">By:&nbsp;<span
+                    style="color: rgb(9, 110, 97);font-weight: bold;">{{post.user|title}}&nbsp;&nbsp;<strong
+                        style="color: black;">with {{total_average}}</strong> </span></h6>
+            <p class="card-text mt-4 mb-3" style="font-family: 'Open Sans Condensed', sans-serif;font-size:20px">
+                {{post.details}}</p>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-5">
+                        <p class="text-center mt-3"
+                            style="font-family: 'Yeseva One', cursive;text-transform: capitalize; font-size: 18px;">
+                            Project score</p>
+
+                        {% if user.is_authenticated %}
+
+                        <a data-toggle="modal" data-target="#exampleModalCenter"><button type="submit"
+                                class="btn-sm btn-success"
+                                style="margin-left:38% ; font-family: 'Josefin Slab', serif;">Rate</button></a>
+
+                        {% endif %}
+
+
+                    </div>
+                    <div class="col-md-7">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p id="total">{{total_design}}</p>
+                                <h6 id="name">Design</h6>
+                            </div>
+                            <div class="col-sm-3">
+                                <p id='total'>{{total_usability}}</p>
+                                <h6 id="name">Usability</h6>
+                            </div>
+                            <div class="col-sm-3">
+                                <p id='total'>{{total_creativity}}</p>
+                                <h6 id="name">Creativity</h6>
+                            </div>
+                            <div class="col-sm-3">
+                                <p id='total'>{{total_content}}</p>
+                                <h6 id="name">Content</h6>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="font-family: 'Josefin Slab', serif;">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Rate this Project</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    {% if rating_status %}
+                    <h5>You have already voted</h5>
+                    {% else %}
+                    
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {{rate_form|crispy}}
+
+                        <button class='btn-success btn-sm mt-3'type="submit"> submit</button>
+
+
+                    </form>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5 ">
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr style="font-family: 'Josefin Slab', serif;">
+                            <th scope="col mr-5" style="text-transform: uppercase; font-size: small;">Last User Votes
+                            </th>
+                            <th scope="col">Design</th>
+                            <th scope="col">Usability</th>
+                            <th scope="col">Creativity</th>
+                            <th scope="col">Content</th>
+                            <th scope="col">Average</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rating in post.ratings.all %}
+                        {% if rating %}
+
+                        <tr>
+                            <th scope="row" style="width: 50%;"><img class="rounded-circle"
+                                    src="{{ user.profile.profile_picture.url }}" width="35"
+                                    height="35">&nbsp;{{rating.user|title}}</th>
+
+                            <td>{{rating.design}}</td>
+                            <td>{{rating.usability}}</td>
+                            <td>{{rating.creativity}}</td>
+                            <td>{{rating.content}}</td>
+                            <td>{{rating.average}}</td>
+
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <th>No Rates yet!</th>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    {% endblock %}
