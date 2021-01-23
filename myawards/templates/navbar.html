@@ -3,8 +3,9 @@
         <a href="" data-target="#searchForm" data-toggle="collapse"><i class="fas fa-search"></i></a>
 
         <div class="collapse fade" id="searchForm">
-            <form  id="searchform" action="{% url 'search' %}"  >
-                <input id="search" type="search" name="project_title" class="form-control border-1 ml-2" placeholder="search" />
+            <form id="searchform" action="{% url 'search' %}">
+                <input id="search" type="search" name="project_title" class="form-control border-1 ml-2"
+                    placeholder="search" />
 
             </form>
         </div>
@@ -19,45 +20,66 @@
                 <li class="nav-item">
                     {% if user.is_authenticated%}
                     <div class="dropdown show">
-                        {% if  user.profile.profile_picture %}
-                        <a class="nav-link" href="#" class=" dropdown-toggle " id="navbarDropdown" data-toggle="dropdown"
-                        role="button" aria-expanded="false" style="color:black">
-                        <img class="rounded-circle" src="{{ user.profile.profile_picture.url }}" width="35" height="35">{{ user.username|title}}
-                    </a>
-                    {% else %}
-                    <a class="nav-link" href="#" class=" dropdown-toggle " id="navbarDropdown" data-toggle="dropdown"
-                        role="button" aria-expanded="false" style="color:black">
-                        <img class="rounded-circle" src="https://res.cloudinary.com/ucynthy12/image/upload/v1609854539/421-4212275_transparent-default-avatar-png-avatar-img-png-download_cgxfx9.png" width="35" height="35">{{ user.username|title}}
-                    </a>
-                    {% endif %}
-                    <div class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown" style="font-family: 'Josefin Slab', serif;">
+                        {% if user.profile.profile_picture %}
+                        <a class="nav-link" href="#" class=" dropdown-toggle " id="navbarDropdown"
+                            data-toggle="dropdown" role="button" aria-expanded="false" style="color:black">
+                            <img class="rounded-circle" src="{{ user.profile.profile_picture.url }}" width="35"
+                                height="35">{{ user.username|title}}
+                        </a>
+                        {% else %}
+                        <a class="nav-link" href="#" class=" dropdown-toggle " id="navbarDropdown"
+                            data-toggle="dropdown" role="button" aria-expanded="false" style="color:black">
+                            <img class="rounded-circle"
+                                src="https://res.cloudinary.com/ucynthy12/image/upload/v1609854539/421-4212275_transparent-default-avatar-png-avatar-img-png-download_cgxfx9.png"
+                                width="35" height="35">{{ user.username|title}}
+                        </a>
+                        {% endif %}
+                        <div class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown"
+                            style="font-family: 'Josefin Slab', serif;">
 
-                        <a href="{% url 'profile' user.username %}" class="dropdown-item">Profile</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="/accounts/password/change" class="dropdown-item">Change Password</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
-                
-                      </div>
+                            <a href="{% url 'profile' user.username %}" class="dropdown-item">Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/accounts/password/change" class="dropdown-item">Change Password</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+
+                        </div>
                     </div>
 
+                </li>
+                <li class="nav-item" style="border-left:1px solid green;margin-top:7px;padding-left:10px;padding-right: 10px;" >
+                    <div class="dropdown show">
+
+                        <a class="nav-link" href="" class=" dropdown-toggle " id="navbarDropdown" data-toggle="dropdown"
+                            role="button" aria-expanded="false">API</a>
+                        <div class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown"
+                            style="font-family: 'Josefin Slab', serif;">
+
+                            <a href="/api/profile" class="dropdown-item">Profiles</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/api/posts" class="dropdown-item">Projects</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/api/users" class="dropdown-item">Users</a>
+
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item" style="border-left:1px solid green;margin-top:7px">
                     <a class="nav-link" href="{% url 'uploads' %}" style="color:green">Submit Your Site</a>
                 </li>
-                 
+
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}" style="color:black" >Register/Login</a>
+                    <a class="nav-link" href="{% url 'login' %}" style="color:black">Register/Login</a>
 
                 </li>
                 <li class="nav-item" style="border-left:1px solid green">
                     <a class="nav-link" href="{% url 'uploads' %}" style="color:green">Submit Your Site</a>
                 </li>
                 {% endif %}
-      
 
-               
+
+
             </ul>
         </div>
 
