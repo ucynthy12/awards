@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card mt-5" style="box-shadow: 0 1px #FFFFFF inset, 0 1px 3px rgba(34, 25, 25, 0.4); background: rgb(241, 240, 240);">
+                <div class="card-body text-center" style="font-family: 'Josefin Slab', serif;">
+                    <h5 class="card-title" style="font-family: 'Yeseva One', ">Upload your Site</h5>
+                    <hr>
+                    <form method="POST" action="{% url 'uploads' %}">
+                        {% csrf_token %}
+                        {{project_form|crispy}}
+        
+                        <button class='btn-success btn-sm mt-3' type="submit"> submit</button>
+        
+        
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+
+    </div>
+    
+
+</div>
+{% endblock %}
