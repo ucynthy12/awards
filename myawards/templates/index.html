@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container-fluid b1"
+    style="background-image:url({{random_image.image.url}});width: 100%;height: 80vh;background-position: center;">
+    <div class="overlay">
+        
+        <p class='float-left'  style="margin-top:2%;margin-left:2%"><strong  style="font-size:large">Sites of the day</strong>&nbsp;&nbsp;<span style="font-size:large">{{date|date}}</span></p>
+        <h4 id='bt'>{{random_image.title}}</h4>
+        <p style="text-transform: uppercase;">by &nbsp;<span style="color: aquamarine; font-weight: bold;">{{random_image.user}}</span>&nbsp;with &nbsp;{{average}}</p>
+        <div class="row mt-5">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="row" style="font-weight: bold;">
+                    <div class="col-sm-3" >
+                        <p id="total">{{design}}</p>
+                        <h6 id="name">Design</h6>
+                    </div>
+                    <div class="col-sm-3">
+                        <p id='total'>{{usability}}</p>
+                        <h6 id="name">Usability</h6>
+                    </div>
+                    <div class="col-sm-3">
+                        <p id='total'>{{creativity}}</p>
+                        <h6 id="name">Creativity</h6>
+                    </div>
+                    <div class="col-sm-3">
+                        <p id='total'>{{content}}</p>
+                        <h6 id="name">Content</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+
+
+            
+
+        </div>
+        <p><a href="" class="btn-success btn-sm float-left" style="margin-top:9%;margin-left:2%;border-radius: 20px; padding: 10px;">Visit site</a></p>
+  
+
+    </div>
+    
+</div>
+
+
+<div class="container mt-5">
+
+    <div class="card-deck mt-3">
+        {% for image in images %}
+
+        <div class="card mt-3 c1">
+            <a href="{%url 'project' image.id %}" style="text-decoration: none;">
+
+                <img class="card-img-top" src="{{image.image.url}}">
+                <div class="card-body">
+                    <p class="card-title font-weight-bold"> {{image.title|title}}</p>
+                    <hr>
+                    <small>
+                        <p class="card-subtitle mt-2">{{image.user|title}}<span
+                                class="card-text float-right">{{image.published|date}}</span></p>
+                    </small>
+                </div>
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+{% endblock %}
