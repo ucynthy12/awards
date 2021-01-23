@@ -1,6 +1,13 @@
 from django.urls import path, include
 from . import views
 from django.contrib.auth import views as auth_views
+from rest_framework import routers
+
+
+router = routers.DefaultRouter()
+router.register('users', views.UserViewSet)
+router.register('posts', views.PostViewSet)
+router.register('profile', views.ProfileViewSet)
 
 urlpatterns = [
     path('account/',include('django.contrib.auth.urls')),
@@ -11,5 +18,6 @@ urlpatterns = [
     path('search/', views.search_projects_title, name='search'),
     path('uploads/',views.upload_form,name='uploads'),
     path('profile/<username>/', views.profile, name='profile'),
+    path('api/', include(router.urls)),
 
 ]
