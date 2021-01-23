@@ -8,6 +8,10 @@ import random
 from decimal import Decimal
 from django.http import HttpResponseRedirect,Http404,HttpResponse
 from django.contrib import messages
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import viewsets
+from .serializers import ProfileSerializer, UserSerializer, ProjectSerializer
 # Create your views here.
 
 def signup(request):
@@ -114,11 +118,6 @@ def projects(request,post_id):
     return render(request,'projects.html',context)
 
 
-   
-
-
-   
-
 
 def search_projects_title(request):
     if 'project_title' in request.GET and request.GET["project_title"]:
@@ -166,3 +165,19 @@ def profile(request, username):
         profile_form = UpdateUserProfileForm(instance=request.user.profile)
     
     return render(request, 'profile.html',{'user_form': user_form, 'profile_form': profile_form,})
+
+
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
