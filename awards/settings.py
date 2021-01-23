@@ -40,6 +40,7 @@ LOGIN_REDIRECT_URL = 'index'
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'crispy_forms',
     'bootstrap4',
     'cloudinary', 
