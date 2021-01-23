@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-1"></div>
+
+        <div class="col-md-4 mt-4">
+            <div class="card " style="width: 18rem;	box-shadow: 0 1px #FFFFFF inset, 0 1px 3px rgba(34, 25, 25, 0.4);font-family: 'Josefin Slab', serif;">
+                {% if user.profile.profile_picture %}
+                <img class="card-img-top"  src="{{ user.profile.profile_picture.url }} " height="250"  >
+                {% else%}
+                <img class="card-img-top" 
+                    src="https://res.cloudinary.com/ucynthy12/image/upload/v1609854539/421-4212275_transparent-default-avatar-png-avatar-img-png-download_cgxfx9.png"
+                    width="200" height="200">
+                {% endif %}
+                <h5 class="text-center mt-3">{{user.username|title}}</h5>
+                <p class="text-center"> {{user.email}}</p>
+                <p class="card-text text-center">{{user.profile.bio}}</p>
+                
+                    <a  class="btn btn-sm btn-success card-footer"data-toggle="modal" data-target=".bd-example-modal-md">Edit profile</a>
+                
+            </div>
+
+
+
+
+            <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <form action="" method="post" novalidate enctype="multipart/form-data"
+                            class="mr-4 mt-4 ml-4 mb-4">
+                            {% csrf_token%}
+                            {{user_form|crispy}}
+                            {{profile_form|crispy}}
+                            <button type="submit" class="btn btn-primary btn-sm"> Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+</div>
+{% endblock %}
