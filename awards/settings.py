@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os 
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,11 +28,22 @@ SECRET_KEY = 'g4owrff#rjd@(9ts#3v$d(k4antq@ob5x5s#cm+&4x6hb02@20'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
+#cloudinary configuration
+cloudinary.config(
+  cloud_name = 'ucynthy12',
+  api_key = '665653842125479',
+  api_secret = 'gtDPJAZGiR3JAizrf6Qk7DTL6Lg',
+  secure = True
+)
+LOGOUT_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'index'
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
+    'bootstrap4',
+    'cloudinary', 
+    'myawards',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -75,11 +89,12 @@ WSGI_APPLICATION = 'awards.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'awards',
+        'USER': 'cynthia',
+    'PASSWORD':'zion',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -105,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Kigali'
 
 USE_I18N = True
 
@@ -118,3 +133,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
