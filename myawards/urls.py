@@ -2,6 +2,7 @@ from django.urls import path, include
 from . import views
 from django.contrib.auth import views as auth_views
 from rest_framework import routers
+from rest_framework.authtoken.views import obtain_auth_token
 
 
 router = routers.DefaultRouter()
@@ -19,5 +20,6 @@ urlpatterns = [
     path('uploads/',views.upload_form,name='uploads'),
     path('profile/<username>/', views.profile, name='profile'),
     path('api/', include(router.urls)),
+    path('api-token-auth/', obtain_auth_token)
 
 ]

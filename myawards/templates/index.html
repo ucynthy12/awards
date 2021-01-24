@@ -5,15 +5,18 @@
 <div class="container-fluid b1"
     style="background-image:url({{random_image.image.url}});width: 100%;height: 80vh;background-position: center;">
     <div class="overlay">
-        
-        <p class='float-left'  style="margin-top:2%;margin-left:2%"><strong  style="font-size:large">Sites of the day</strong>&nbsp;&nbsp;<span style="font-size:large">{{date|date}}</span></p>
+
+        <p class='float-left' style="margin-top:2%;margin-left:2%"><strong style="font-size:large">Sites of the
+                day</strong>&nbsp;&nbsp;<span style="font-size:large">{{date|date}}</span></p>
         <h4 id='bt'>{{random_image.title}}</h4>
-        <p style="text-transform: uppercase;">by &nbsp;<span style="color: aquamarine; font-weight: bold;">{{random_image.user}}</span>&nbsp;with &nbsp;{{average}}</p>
+        <p style="text-transform: uppercase;">by &nbsp;<span
+                style="color: aquamarine; font-weight: bold;">{{random_image.user}}</span>&nbsp;with &nbsp;{{average}}
+        </p>
         <div class="row mt-5">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4"></div>
+            <div class="col-md-4 col-sm-4">
                 <div class="row" style="font-weight: bold;">
-                    <div class="col-sm-3" >
+                    <div class="col-sm-3">
                         <p id="total">{{design}}</p>
                         <h6 id="name">Design</h6>
                     </div>
@@ -31,36 +34,44 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-4 col-sm-4"></div>
 
 
-            
+
 
         </div>
-        <p><a href="" class="btn-success btn-sm float-left" style="margin-top:9%;margin-left:2%;border-radius: 20px; padding: 10px;">Visit site</a></p>
-  
+        <p><a href="{{random_image.url}}" class="btn-success btn-sm float-left"
+                style="margin-top:9%;margin-left:2%;border-radius: 20px; padding: 10px;">Visit site</a></p>
+
 
     </div>
-    
-</div>
 
+</div>
+<div class="jumbotron mb-3" style="height: 5vh; ">
+    <p class="text-center" style="text-transform: uppercase;"><strong>Sites on awwwards.</strong></p>
+</div>
 
 <div class="container mt-5">
 
     <div class="card-deck mt-3">
         {% for image in images %}
 
-        <div class="card mt-3 c1">
-            <a href="{%url 'project' image.id %}" style="text-decoration: none;">
+        <div class="card mt-3 c1 mb-4">
+            <a href="{%url 'project' image.id %}" style="text-decoration: none;color: black;">
 
                 <img class="card-img-top" src="{{image.image.url}}">
                 <div class="card-body">
-                    <p class="card-title font-weight-bold"> {{image.title|title}}</p>
+                    <p class="card-title font-weight-bold" > {{image.title|title}}<span>
+                            <button class=" btn-sm btn btn-success float-right" style="border-radius: 20px;">Vote</button>
+
+                        </span></p>
+
                     <hr>
                     <small>
                         <p class="card-subtitle mt-2">{{image.user|title}}<span
                                 class="card-text float-right">{{image.published|date}}</span></p>
                     </small>
+
                 </div>
             </a>
 

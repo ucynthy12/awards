@@ -12,7 +12,7 @@ class Profile(models.Model):
     projects = models.ForeignKey('Project',on_delete= models.CASCADE,null=True,blank=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.user.username} Profile'
     
     def save_profile(self):
         self.save()
@@ -38,7 +38,7 @@ class Project(models.Model):
     published = models.DateTimeField(auto_now_add=True,blank=True,null=True)
 
     def __str__(self):
-        return self.title
+        return f'{self.title} Project'
     
     def save_project(self):
         self.save()
@@ -46,7 +46,6 @@ class Project(models.Model):
     @classmethod
     def all_images(cls):
         images = Project.objects.all()
-        print(images)
         return images
     
     @classmethod
