@@ -19,9 +19,8 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request,'Account was created for ' + user)
-            login(request, user)
+            username = request.POST.get('username')
+            password = request.POST.get('password')
             return redirect('login')
        
     else:
@@ -63,21 +62,18 @@ def projects(request,post_id):
     user = User.objects.get(username=request.user)
     post = Project.objects.get(pk= post_id)
     ratings = Rate.objects.filter(post=post)
+    ratingss = Rate.objects.filter(user=request.user, post=post).first()
     total_design = 0
     total_usability = 0
     total_creativity = 0
     total_content = 0
     total_average = 0
     rating_status = None
-    a=  Rate.objects.filter(user=user)
-    print(a)
-    # if not ratings in  request.user.ratings.all():
-    #     rating_status = False
-    # else:
-    #     rating_status = True
-
+    if ratingss is None:
+        rating_status = False
+    else:
+        rating_status = True
     if ratings:
-      
         total_design = ratings.aggregate(Avg('design')).get('design__avg', 0.00)
     
         total_usability = ratings.aggregate(Avg('usability')).get('usability__avg', 0.00)
@@ -85,7 +81,7 @@ def projects(request,post_id):
         total_content = ratings.aggregate(Avg('content')).get('content__avg', 0.00)
         average =(total_design + total_usability + total_creativity+ total_content)/4
         total_average =round(average,2) 
-    
+
     boom = Project.objects.get(pk=post_id)
     current_user = request.user
     if request.method =='POST':
@@ -135,7 +131,7 @@ def search_projects_title(request):
 def upload_form(request):
     current_user = request.user
     if request.method =='POST':
-        project_form =ProjectForm(request.POST)
+        project_form =ProjectForm(request.POST,request.FILES)
         if project_form.is_valid():          
             project=project_form.save(commit=False)
             project.user = current_user
