@@ -11,7 +11,7 @@
                 <div class="card-body text-center" style="font-family: 'Josefin Slab', serif;">
                     <h5 class="card-title" style="font-family: 'Yeseva One', ">Upload your Site</h5>
                     <hr>
-                    <form method="POST" action="{% url 'uploads' %}">
+                    <form method="POST" enctype="multipart/form-data" action="{% url 'uploads' %}">
                         {% csrf_token %}
                         {{project_form|crispy}}
         
