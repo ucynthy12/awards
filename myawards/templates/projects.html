@@ -10,8 +10,8 @@
         <img class="card-img-top" src="{{post.image.url}}" alt="{{post.title}}">
         <div class="card-body">
             <h5 class="card-title" style="font-family: 'Yeseva One', cursive ;font-size: 25px;">
-                {{post.title|title}}<span class="float-right"><small>{{post.published|timesince}}<i
-                            class="far fa-clock"></i></small></span>
+                <a href="{{post.url}}">{{post.title|title}}</a><span
+                    class="float-right"><small>{{post.published|timesince}}<i class="far fa-clock"></i></small></span>
             </h5>
             <h6 class="card-subtitle mt-3">By:&nbsp;<span
                     style="color: rgb(9, 110, 97);font-weight: bold;">{{post.user|title}}&nbsp;&nbsp;<strong
@@ -80,12 +80,12 @@
                     {% if rating_status %}
                     <h5>You have already voted</h5>
                     {% else %}
-                    
+
                     <form method="POST" action="">
                         {% csrf_token %}
                         {{rate_form|crispy}}
 
-                        <button class='btn-success btn-sm mt-3'type="submit"> submit</button>
+                        <button class='btn-success btn-sm mt-3' type="submit"> submit</button>
 
 
                     </form>
@@ -112,9 +112,11 @@
 
                         </tr>
                     </thead>
+                    {% if post.ratings.all %}
+
                     <tbody>
+
                         {% for rating in post.ratings.all %}
-                        {% if rating %}
 
                         <tr>
                             <th scope="row" style="width: 50%;"><img class="rounded-circle"
@@ -128,15 +130,20 @@
                             <td>{{rating.average}}</td>
 
                         </tr>
-                        {% else %}
-                        <tr>
-                            <th>No Rates yet!</th>
-                        </tr>
-                        {% endif %}
                         {% endfor %}
+
+                       
 
 
                     </tbody>
+                    {% else %}
+                    <tbody>
+
+                    <tr>
+                        <th>No Rates yet!</th>
+                    </tr>
+                    </tbody>
+                    {% endif %}
                 </table>
             </div>
         </div>
