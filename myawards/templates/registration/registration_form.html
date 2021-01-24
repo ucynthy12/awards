@@ -14,7 +14,7 @@
 
                     </p>
                     <div class="card-text">
-                        <form action="" method="post" novalidate >
+                        <form action="" method="POST" novalidate>
                             {% csrf_token%}
                             <div class="md-form ">
                                 
@@ -25,22 +25,25 @@
     
                             <div class="md-form ">
                               
-                                <input type="text" name="password" class="form-control validate">
+                                <input type="text" name="email" class="form-control validate">
                                 <label data-error='wrong' data-success='right' for="">  <i class="fas fa-envelope prefix grey-text"></i> Your email</label>
                             </div>
     
                             <div class="md-form ">
 
-                                <input type="password" name="password" class="form-control validate">
+                                <input type="password" name="password1" class="form-control validate">
                                 <label data-error='wrong' data-success='right' for=""><i class="fas fa-lock prefix grey-text"></i> Your Password</label>
                             </div>
     
                             <div class="md-form ">
                               
-                                <input type="password" name="password" class="form-control validate">
+                                <input type="password" name="password2" class="form-control validate">
                                 <label data-error='wrong' data-success='right' for=""><i class="fas fa-lock prefix grey-text"></i> Confirm Your Password</label>
                             </div>
-                            <button class="btn btn-primary mt-2 " style="margin-left: 38%;">Sign up</button>
+                            {{form.errors}}
+                            
+
+                            <button class="btn btn-primary mt-2 "  type="submit" style="margin-left: 38%;">Sign up</button>
     
                         </form>
                     </div>
